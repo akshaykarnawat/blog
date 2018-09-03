@@ -1,0 +1,25 @@
+{
+  "name": "akshay_karnawat_blog",
+  "description": "blog posts from akshay karnawat",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "convert_ipynb": "cd src/pages/notebook; jupyter nbconvert *.ipynb;"
+  },
+  "dependencies": {
+    "gatsby": "next",
+    "gatsby-remark-prismjs": "^2.0.5",
+    "gatsby-source-filesystem": "^1.5.39",
+    "gatsby-transformer-ipynb": "0.0.1",
+    "gatsby-transformer-remark": "^1.7.44",
+    "prismjs": "^1.15.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.2.0"
+  }
+}

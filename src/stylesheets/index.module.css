@@ -1,0 +1,21 @@
+html {
+    background-image: url(../assets/img/birds_nature_forest.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.post {
+    background: white;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-top: 5px solid #E23A59;
+}
+
+.slug {
+    text-decoration: none;
+    color: black;
+}

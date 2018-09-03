@@ -1,0 +1,37 @@
+.main {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.homeBtn {
+    color: #E23A59;
+}
+
+.tag {
+    display: inline-block;
+    background: black;
+    color: white;
+    font-size: 11px;
+    width: auto;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 5px;
+    border: 1px solid black;
+}
+
+.iframecontainer {
+    overflow: hidden;
+    padding-top: 63.25%;
+    position: relative;
+}
+
+.iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
