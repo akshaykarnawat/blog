@@ -202,7 +202,7 @@ class AppMain(Atom):
 ```
 
 After these edits, the app looks something like this. Progress!
-<center><img src="/static/app_with_combobox-eb114df2de3e6f6dec4d9628a6b67dcf.png"></center>
+<center><img src="/static/app_with_combo_box-eb114df2de3e6f6dec4d9628a6b67dcf.png"></center>
 
 <br>
 
