@@ -1,0 +1,438 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet"/><style data-href="/blog/app.b62a7e88e5475d544edd.css">code[class*=language-],pre[class*=language-]{-moz-hyphens:none;-moz-tab-size:4;-ms-hyphens:none;-o-tab-size:4;-webkit-hyphens:none;background:none;color:#ccc;hyphens:none;line-height:1.3;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal;word-wrap:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+
+/*# sourceMappingURL=app.b62a7e88e5475d544edd.css.map*/</style><style data-href="/blog/0.886076ee683d30d0e819.css">.header-module--header--MVsbu{color:#15959f;font-weight:600;text-decoration:none;text-shadow:0 0 1px}
+.container-module--container--38ti0{font-family:Open Sans,sans-serif;margin:3rem auto;max-width:630px}
+.post-module--main--2pacP{background:#fff;border-radius:5px;margin-top:20px;padding:20px}.post-module--homeBtn--3cy-B{color:#e23a59}.post-module--tag--2WiWH{background:#000;border:1px solid #000;color:#fff;display:inline-block;font-size:11px;margin-right:5px;padding-left:3px;padding-right:3px;width:auto}.post-module--iframecontainer--3EKEP{overflow:hidden;padding-top:63.25%;position:relative}.post-module--iframe--2-6fr{border:0;height:100%;left:0;position:absolute;top:0;width:100%}
+
+/*# sourceMappingURL=0.886076ee683d30d0e819.css.map*/</style><link as="script" rel="preload" href="/blog/component---src-templates-blog-post-js-c94091c5f2932c32deef.js"/><link as="script" rel="preload" href="/blog/0-b124c594273ce56f9a0a.js"/><link as="script" rel="preload" href="/blog/app-6bd94ef485552b86a35d.js"/><link as="script" rel="preload" href="/blog/webpack-runtime-0db6eb5a10fe0d89fa8c.js"/><link rel="preload" href="/blog/static/d/403/path---dynamic-container-with-enaml-3-b-6-c39-HbFOg6PucrrHfeFPWWYNImSrid8.json" as="fetch" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="container-module--container--38ti0"><a class="header-module--header--MVsbu" href="/blog/"><h1>akshaykarnawat | blog</h1></a><a class="post-module--homeBtn--3cy-B" href="/blog/"> ← Home</a><div class="post-module--main--2pacP"><h2>Building an Enaml App with Dynamic Containers using Python</h2><span style="font-size:13px">Tags: </span><span class="post-module--tag--2WiWH">enaml</span><span class="post-module--tag--2WiWH"> python</span><span class="post-module--tag--2WiWH"> dynamic containers</span><span class="post-module--tag--2WiWH"> desktop app</span><br/><div><br>
+<p>There are numerous ways to build applications, especially in today's time, as there are plentiful libraries and tools available on the web. To name a few, we can use django, pyramid, and even flask for simpler apps. This article focuses on building desktop apps with Enaml. Enaml is a library to build desktop apps with minimal effort. You might ask why? Why in this day and age would you ever build a desktop app? Hey why not, every project has its requirements and constrainsts.</p>
+<p>Here is what you need:</p>
+<ul>
+<li>Miniconda and a conda environment</li>
+<li>latest version of python</li>
+<li>some basic programming knowledge (better if python)</li>
+</ul>
+<br>
+<h2>Installing enaml</h2>
+<p>Enaml can be installed using <code class="language-text">conda</code> with an easy command.</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash"><span class="token operator">></span> conda <span class="token function">install</span> enaml
+
+The following packages will be downloaded:
+
+    package                    <span class="token operator">|</span>            build
+    ---------------------------<span class="token operator">|</span>-----------------
+    python.app-2               <span class="token operator">|</span>           py36_9         1.3 MB
+    certifi-2018.8.24          <span class="token operator">|</span>           py36_1         139 KB
+    atom-0.4.1                 <span class="token operator">|</span>   py36h0a44026_0         107 KB
+    openssl-1.0.2p             <span class="token operator">|</span>       h1de35cc_0         3.4 MB
+    ply-3.11                   <span class="token operator">|</span>           py36_0          79 KB
+    qtpy-1.5.1                 <span class="token operator">|</span>           py36_0          53 KB
+    kiwisolver-1.0.1           <span class="token operator">|</span>   py36h0a44026_0          56 KB
+    future-0.16.0              <span class="token operator">|</span>           py36_2         668 KB
+    enaml-0.10.2               <span class="token operator">|</span>   py36h0a44026_0         961 KB
+    ------------------------------------------------------------
+                                           Total:         6.7 MB</code></pre>
+      </div>
+<p>Congrats! You now have enmal installed on your conda environment.</p>
+<br>
+<h2>Folder Structure</h2>
+<p>First create a new folder. And then add initial files using <code class="language-text">touch</code> and <code class="language-text">mkdir</code> commands.</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash"><span class="token operator">></span> <span class="token function">mkdir</span> dyn_container_enaml
+<span class="token operator">></span> <span class="token function">cd</span> dyn_container_enaml
+<span class="token operator">></span> <span class="token function">touch</span> main.py
+<span class="token punctuation">..</span>.</code></pre>
+      </div>
+<p>After completion, the folder structure would looks something like this:</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash"><span class="token operator">></span> tree dyn_container_enaml/
+dyn_container_enaml/
+├── main.py
+└── src/
+    ├── app_layout.enaml
+    ├── app_model.py
+    ├── container_one/
+    │   ├── container_one_layout.enaml
+    │   └── container_one_model.py
+    └── container_two/
+        ├── container_two_layout.enaml
+        └── container_two_model.py
+
+3 directories, 7 files</code></pre>
+      </div>
+<p>*Note <code class="language-text">tree</code> is a bash command which can be installed using homebrew package for mac os.
+<code class="language-text">brew install tree</code></p>
+<br>
+<h2>Hello, Enaml!</h2>
+<p>The code in these files is where python will spin off the enaml application.
+So lets get started with some coding!</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># main.py</span>
+
+<span class="token keyword">import</span> enaml
+<span class="token keyword">import</span> traceback
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>app_model <span class="token keyword">import</span> AppMain
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>qt<span class="token punctuation">.</span>qt_application <span class="token keyword">import</span> QtApplication
+
+<span class="token comment"># enaml.imports is a gateway to import enaml files as they</span>
+<span class="token comment"># are not part of python. Enaml is a superset of python.</span>
+<span class="token keyword">with</span> enaml<span class="token punctuation">.</span>imports<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">from</span> src<span class="token punctuation">.</span>app_layout <span class="token keyword">import</span> App
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    <span class="token comment"># create a Qt application</span>
+    app <span class="token operator">=</span> QtApplication<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># define a new view for enaml object</span>
+    view <span class="token operator">=</span> App
+
+    <span class="token comment"># set the attribute of enaml object to a python object</span>
+    App<span class="token punctuation">.</span>model <span class="token operator">=</span> AppMain<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># initialize the enaml view and call show</span>
+    view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># then start the Qt Application</span>
+    app<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">except</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>traceback<span class="token punctuation">.</span>format_exc<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_layout.enaml</span>
+
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>widgets<span class="token punctuation">.</span>api <span class="token keyword">import</span> Window<span class="token punctuation">,</span> Container<span class="token punctuation">,</span> Label
+
+<span class="token comment"># create a new enaml Window object</span>
+enamldef App<span class="token punctuation">(</span>Window<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment"># create an attribute model which gets set in main.py</span>
+    <span class="token comment"># Note: the model can also be instantiated here after</span>
+    <span class="token comment"># import of the python object.</span>
+    attr model
+    <span class="token comment"># attr model = AppMain() # import app_model</span>
+    
+    <span class="token comment"># container has a label with the message</span>
+    Container<span class="token punctuation">:</span>
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">=</span> <span class="token string">"Hello, Enaml!"</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_model.py</span>
+
+<span class="token keyword">class</span> <span class="token class-name">AppMain</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<p>Here is what the output of the app looks like thus far!</p>
+<center><img src="../static/hello_enaml-672d77c5a00a2edc9d74e253e487cd78.png" height="200px"></center>
+<h2>Adding ComboBox in UI</h2>
+<p>Time to add some combo boxes so that we can switch between different containers. Lets start by importing ComboBox widget in enaml and adding it to the container. Next we will change the python object to be that of Atom and then add some other properties which are refrenced in enaml layout. See the code below for more details.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_layout.enaml</span>
+
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>widgets<span class="token punctuation">.</span>api <span class="token keyword">import</span> Window<span class="token punctuation">,</span> Container<span class="token punctuation">,</span> Label<span class="token punctuation">,</span> ComboBox
+
+<span class="token comment"># create a new enaml Window object</span>
+enamldef App<span class="token punctuation">(</span>Window<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment"># create an attribute model which gets set in main.py</span>
+    <span class="token comment"># Note: the model can also be instantiated here after</span>
+    <span class="token comment"># import of the python object.</span>
+    attr model
+    <span class="token comment"># attr model = AppMain() # import app_model</span>
+    
+    Container<span class="token punctuation">:</span>
+        <span class="token comment"># container has a label with a title getting set from</span>
+        <span class="token comment"># model property</span>
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>title
+
+        <span class="token comment"># container has a combo box to switch containers for </span>
+        <span class="token comment"># different modules. Note: the '&lt;&lt;' which implies the</span>
+        <span class="token comment"># model has a property called containers which is</span>
+        <span class="token comment"># getting set.</span>
+        ComboBox<span class="token punctuation">:</span>
+            items <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>containers</code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_model.py</span>
+
+<span class="token keyword">from</span> atom<span class="token punctuation">.</span>api <span class="token keyword">import</span> Atom<span class="token punctuation">,</span> Value
+
+<span class="token keyword">class</span> <span class="token class-name">AppMain</span><span class="token punctuation">(</span>Atom<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token comment"># property has a CAtom object of Value as it is needed</span>
+    <span class="token comment"># to work with enaml superset</span>
+    title <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token string">'Dynamic Container Example'</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># containes are defined here as None</span>
+    containers <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># when the object is initialized, the value for </span>
+        <span class="token comment"># containers is set</span>
+        self<span class="token punctuation">.</span>containers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Container One'</span><span class="token punctuation">,</span> <span class="token string">'Container Two'</span><span class="token punctuation">]</span></code></pre>
+      </div>
+<p>After these edits, the app looks something like this. Progress!</p>
+<center><img src="/static/app_with_combobox-eb114df2de3e6f6dec4d9628a6b67dcf.png"></center>
+<br>
+<h2>Enaml Include other Container Models/Layouts</h2>
+<p>At this point, we want to make it such that when we select an item from the dropdown, we render a different container in the bottom. This is possible due to enaml <code class="language-text">include</code> code api. It lets us remove/add widgets dynamically through python code. Final mile!</p>
+<p>Lets start by adding something for each model (One and Two) including the layouts.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># container_one_layout.enaml</span>
+
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>widgets<span class="token punctuation">.</span>api <span class="token keyword">import</span> Container<span class="token punctuation">,</span> Label
+
+enamldef ContainerOneLayout<span class="token punctuation">(</span>Container<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment"># create an attribute model which gets set through code</span>
+    attr model
+    
+    Container<span class="token punctuation">:</span>
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>title
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">=</span> <span class="token string">'This is a random text for container one'</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># container_one_model.py</span>
+
+<span class="token keyword">from</span> atom<span class="token punctuation">.</span>api <span class="token keyword">import</span> Atom<span class="token punctuation">,</span> Value
+
+<span class="token keyword">class</span> <span class="token class-name">ContainerOne</span><span class="token punctuation">(</span>Atom<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    title <span class="token operator">=</span> <span class="token string">'Container One'</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># container_two_layout.enaml</span>
+
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>widgets<span class="token punctuation">.</span>api <span class="token keyword">import</span> Container<span class="token punctuation">,</span> Label
+
+enamldef ContainerTwoLayout<span class="token punctuation">(</span>Container<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment"># create an attribute model which gets set through code</span>
+    attr model
+    
+    Container<span class="token punctuation">:</span>
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>title
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">=</span> <span class="token string">'Adding some random text for container two'</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># container_two_model.py</span>
+
+<span class="token keyword">from</span> atom<span class="token punctuation">.</span>api <span class="token keyword">import</span> Atom<span class="token punctuation">,</span> Value
+
+<span class="token keyword">class</span> <span class="token class-name">ContainerTwo</span><span class="token punctuation">(</span>Atom<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    title <span class="token operator">=</span> <span class="token string">'Container Two'</span>
+    </code></pre>
+      </div>
+<p>Next up, lets add in the locations of the containers and models in the app_model.py and refrence the keys of the model layout as a list to the containers. From here when a user selects a value from the dropdown, we will render a different layout and model, respectively.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_model.py</span>
+
+<span class="token keyword">from</span> atom<span class="token punctuation">.</span>api <span class="token keyword">import</span> Atom<span class="token punctuation">,</span> Value
+
+<span class="token comment"># import all container models</span>
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>container_one<span class="token punctuation">.</span>container_one_model <span class="token keyword">import</span> ContainerOne
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>container_two<span class="token punctuation">.</span>container_two_model <span class="token keyword">import</span> ContainerTwo
+
+<span class="token comment"># import all container layouts</span>
+<span class="token keyword">import</span> enaml
+<span class="token keyword">with</span> enaml<span class="token punctuation">.</span>imports<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">from</span> src<span class="token punctuation">.</span>container_one<span class="token punctuation">.</span>container_one_layout <span class="token keyword">import</span> ContainerOneLayout
+    <span class="token keyword">from</span> src<span class="token punctuation">.</span>container_two<span class="token punctuation">.</span>container_two_layout <span class="token keyword">import</span> ContainerTwoLayout
+
+
+<span class="token comment"># create a new list which represents the objects for model and layout</span>
+MODEL_LAYOUTS <span class="token operator">=</span> \
+<span class="token punctuation">{</span>
+    <span class="token string">'Container One'</span><span class="token punctuation">:</span> \
+    <span class="token punctuation">{</span>
+        <span class="token string">'model'</span>     <span class="token punctuation">:</span> ContainerOne<span class="token punctuation">,</span>
+        <span class="token string">'layout'</span>    <span class="token punctuation">:</span> ContainerOneLayout
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'Container Two'</span><span class="token punctuation">:</span> \
+    <span class="token punctuation">{</span>
+        <span class="token string">'model'</span>     <span class="token punctuation">:</span> ContainerTwo<span class="token punctuation">,</span>
+        <span class="token string">'layout'</span>    <span class="token punctuation">:</span> ContainerTwoLayout
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">AppMain</span><span class="token punctuation">(</span>Atom<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token comment"># property has a CAtom object of Value as it is needed</span>
+    <span class="token comment"># to work with enaml superset</span>
+    title <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token string">'Dynamic Container Example'</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># containes are defined here as None</span>
+    containers <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># container to render once an item is selected through</span>
+    <span class="token comment"># the dropdown</span>
+    selectedContainer <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># when the object is initialized, the value for </span>
+        <span class="token comment"># containers is set. In this case, the value </span>
+        <span class="token comment"># consists of keys rendered from the model layout</span>
+        <span class="token comment"># dictionary</span>
+        self<span class="token punctuation">.</span>containers <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>MODEL_LAYOUTS<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">renderContainer</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">pass</span></code></pre>
+      </div>
+<br>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_layout.enaml</span>
+
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>core<span class="token punctuation">.</span>api <span class="token keyword">import</span> Include
+<span class="token keyword">from</span> enaml<span class="token punctuation">.</span>widgets<span class="token punctuation">.</span>api <span class="token keyword">import</span> Window<span class="token punctuation">,</span> Container<span class="token punctuation">,</span> Label<span class="token punctuation">,</span> ComboBox
+
+<span class="token comment"># create a new enaml Window object</span>
+enamldef App<span class="token punctuation">(</span>Window<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment"># create an attribute model which gets set in main.py</span>
+    <span class="token comment"># Note: the model can also be instantiated here after</span>
+    <span class="token comment"># import of the python object.</span>
+    attr model
+    <span class="token comment"># attr model = AppMain() # import app_model</span>
+    
+    Container<span class="token punctuation">:</span>
+        <span class="token comment"># container has a label with a title getting set from</span>
+        <span class="token comment"># model property</span>
+        Label<span class="token punctuation">:</span>
+            text <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>title
+
+        <span class="token comment"># container has a combo box to switch containers for </span>
+        <span class="token comment"># different modules. Note: the '&lt;&lt;' which implies the</span>
+        <span class="token comment"># model has a property called containers which is</span>
+        <span class="token comment"># getting set.</span>
+        <span class="token comment"># Note: dropdown is given as a name for this ComboBox</span>
+        <span class="token comment"># so that it can be refrenced later.</span>
+        ComboBox<span class="token punctuation">:</span> dropdown<span class="token punctuation">:</span>
+            items <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>containers
+
+            <span class="token comment"># selected_item is a propery of ComboBox which returns</span>
+            <span class="token comment"># the selected item. The '::' implied notification which</span>
+            <span class="token comment"># can be used to execute python code and call a function</span>
+            <span class="token comment"># on the model property.</span>
+            selected_item <span class="token punctuation">:</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span>dropdown<span class="token punctuation">.</span>selected_item<span class="token punctuation">)</span>
+                <span class="token comment"># this function will render a different container</span>
+                <span class="token comment"># on UI by calling the model's function</span>
+                model<span class="token punctuation">.</span>renderContainer<span class="token punctuation">(</span>dropdown<span class="token punctuation">.</span>selected_item<span class="token punctuation">)</span>
+
+        <span class="token comment"># Include is the core api widget that lets applications</span>
+        <span class="token comment"># define the objets being added/removed dynamically</span>
+        <span class="token comment"># through python. The objects which is a list is </span>
+        <span class="token comment"># currently pointing to selectedContainer in model.</span>
+        Include<span class="token punctuation">:</span> dynamicContainers<span class="token punctuation">:</span>
+            objects <span class="token operator">&lt;&lt;</span> model<span class="token punctuation">.</span>selectedContainer</code></pre>
+      </div>
+<p>Final touches...implementing the <code class="language-text">renderContainer</code> function</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># app_model.py</span>
+
+<span class="token keyword">from</span> atom<span class="token punctuation">.</span>api <span class="token keyword">import</span> Atom<span class="token punctuation">,</span> Value
+<span class="token keyword">import</span> traceback
+
+<span class="token comment"># import all container models</span>
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>container_one<span class="token punctuation">.</span>container_one_model <span class="token keyword">import</span> ContainerOne
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>container_two<span class="token punctuation">.</span>container_two_model <span class="token keyword">import</span> ContainerTwo
+
+<span class="token comment"># import all container layouts</span>
+<span class="token keyword">import</span> enaml
+<span class="token keyword">with</span> enaml<span class="token punctuation">.</span>imports<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">from</span> src<span class="token punctuation">.</span>container_one<span class="token punctuation">.</span>container_one_layout <span class="token keyword">import</span> ContainerOneLayout
+    <span class="token keyword">from</span> src<span class="token punctuation">.</span>container_two<span class="token punctuation">.</span>container_two_layout <span class="token keyword">import</span> ContainerTwoLayout
+
+
+<span class="token comment"># create a new list which represents the objects for model and layout</span>
+MODEL_LAYOUTS <span class="token operator">=</span> \
+<span class="token punctuation">{</span>
+    <span class="token string">'Container One'</span><span class="token punctuation">:</span> \
+    <span class="token punctuation">{</span>
+        <span class="token string">'model'</span>     <span class="token punctuation">:</span> ContainerOne<span class="token punctuation">,</span>
+        <span class="token string">'layout'</span>    <span class="token punctuation">:</span> ContainerOneLayout
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'Container Two'</span><span class="token punctuation">:</span> \
+    <span class="token punctuation">{</span>
+        <span class="token string">'model'</span>     <span class="token punctuation">:</span> ContainerTwo<span class="token punctuation">,</span>
+        <span class="token string">'layout'</span>    <span class="token punctuation">:</span> ContainerTwoLayout
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">AppMain</span><span class="token punctuation">(</span>Atom<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token comment"># property has a CAtom object of Value as it is needed</span>
+    <span class="token comment"># to work with enaml superset</span>
+    title <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token string">'Dynamic Container Example'</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># containes are defined here as None</span>
+    containers <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># container to render once an item is selected through</span>
+    <span class="token comment"># the dropdown</span>
+    selectedContainer <span class="token operator">=</span> Value<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># when the object is initialized, the value for </span>
+        <span class="token comment"># containers is set. In this case, the value </span>
+        <span class="token comment"># consists of keys rendered from the model layout</span>
+        <span class="token comment"># dictionary</span>
+        self<span class="token punctuation">.</span>containers <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>MODEL_LAYOUTS<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">renderContainer</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Render a container for the given key
+        """</span>
+        <span class="token keyword">if</span> key <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>selectedContainer <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> key <span class="token operator">not</span> <span class="token keyword">in</span> MODEL_LAYOUTS<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>selectedContainer <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> key <span class="token keyword">in</span> MODEL_LAYOUTS<span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                <span class="token comment"># get the layout</span>
+                container <span class="token operator">=</span> MODEL_LAYOUTS<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'layout'</span><span class="token punctuation">)</span>
+
+                <span class="token comment"># set the model attr of layout to the model</span>
+                container<span class="token punctuation">.</span>model <span class="token operator">=</span> MODEL_LAYOUTS<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'model'</span><span class="token punctuation">)</span>
+
+                <span class="token comment"># set the selected container to the container and</span>
+                <span class="token comment"># initialize the layout</span>
+                self<span class="token punctuation">.</span>selectedContainer <span class="token operator">=</span> <span class="token punctuation">[</span>container<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            <span class="token keyword">except</span><span class="token punctuation">:</span>
+                traceback<span class="token punctuation">.</span>format_exc<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+      </div>
+<br>
+<h2>Final Results</h2>
+<p>Both the containers are rendered as a selection is made on the UI. Images Below.</p>
+<p><strong>Container One</strong><br>
+<img src="../static/container_one_render-ef871fa40a2e7911301ed31d34130683.png">
+<br></p>
+<p><strong>Container Two</strong><br>
+<img src="../static/container_two_render-8b76654b2f781088b01a3238d396203b.png"></p>
+<p>More containers can be added to play around with different widgets and layouts. This was just a little taste of what can be done with enaml and its easy pythonic implementation. With the combination of python, the UI becomes even more prominent and consider looking into.</p>
+<p>You can read more on enaml here: <a href="http://blink1073.github.io/enaml/docs/index.html">http://blink1073.github.io/enaml/docs/index.html</a></p></div><br/><br/><div style="height:250px;width:500px">   
+                            <script type="text/javascript">
+                                ( function() {
+                                if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+                                var unit = {"calltype":"async[2]","publisher":"akarnawat","width":550,"height":250,"sid":"Chitika Default"};
+                                var placement_id = window.CHITIKA.units.length;
+                                window.CHITIKA.units.push(unit);
+                                document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+                                }());
+                            </script>
+                            <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+                            </div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"dynamic-container-with-enaml-3b6","path":"/dynamic_container_with_enaml/"};window.dataPath="403/path---dynamic-container-with-enaml-3-b-6-c39-HbFOg6PucrrHfeFPWWYNImSrid8";/*]]>*/</script><script src="/blog/webpack-runtime-0db6eb5a10fe0d89fa8c.js" async=""></script><script src="/blog/app-6bd94ef485552b86a35d.js" async=""></script><script src="/blog/0-b124c594273ce56f9a0a.js" async=""></script><script src="/blog/component---src-templates-blog-post-js-c94091c5f2932c32deef.js" async=""></script></body></html>
