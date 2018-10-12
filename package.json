@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "gatsby": "next",
+    "gatsby-plugin-sharp": "^2.0.6",
+    "gatsby-remark-images": "^2.0.4",
     "gatsby-remark-prismjs": "^2.0.5",
     "gatsby-source-filesystem": "^1.5.39",
     "gatsby-transformer-ipynb": "0.0.1",

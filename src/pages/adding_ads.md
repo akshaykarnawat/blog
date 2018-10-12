@@ -6,25 +6,23 @@ tags: testing, blog, ads, chitika, rendering scripts html
 
 Testing to see if the blog works as expected by adding ads from <a href="https://chitika.com">Chitika.com</a>. All of this is done by setting html in the `<div>...</div>` tag of the post.
 
-Code fragment looks something like this below for rendering with gatsbyjs and react ...
+Code uses a property called `dangerouslySetInnerHTML` to set `__html` property of gatsbyjs and/or react ...
 
-```javascript
-<div style={{height: '250px', width: '500px'}}
-    dangerouslySetInnerHTML={{
-        __html: `   
-                    var world = "world";
-                    console.log("hello " + world);
+The page is then converted to a static page to become...
 
-                    // <script>
-                    //      {{code for ads go here}}
-                    // </script>
-                `
-/>
+```html
+<div>
+    <script type="text/javascript">
+    // function to render ad goes here
+    </script>
+    <script type="text/javascript" ... async></script>
+</div>
 ```
 
 As you can see the rendered ad appears below (or hit refresh!).
 
 <br/><br/>
+
 <!-- add placed below -->
 <div style="height: 250px; weight:550px;">
     <script type="text/javascript">
