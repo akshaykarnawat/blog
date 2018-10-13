@@ -202,7 +202,7 @@ class AppMain(Atom):
 ```
 
 After these edits, the app looks something like this. Progress!
-<center><img src="/static/app_with_combo_box-eb114df2de3e6f6dec4d9628a6b67dcf.png"></center>
+<center><img src="../static/app_with_combo_box-eb114df2de3e6f6dec4d9628a6b67dcf.png" height="200px"></center>
 
 <br>
 
@@ -438,19 +438,18 @@ class AppMain(Atom):
         if key not in MODEL_LAYOUTS:
             self.selectedContainer = []
 
-        if key in MODEL_LAYOUTS:
-            try:
-                # get the layout
-                container = MODEL_LAYOUTS.get(key).get('layout')
+        try:
+            # get the layout
+            container = MODEL_LAYOUTS.get(key).get('layout')
 
-                # set the model attr of layout to the model
-                container.model = MODEL_LAYOUTS.get(key).get('model')
+            # set the model attr of layout to the model
+            container.model = MODEL_LAYOUTS.get(key).get('model')
 
-                # set the selected container to the container and
-                # initialize the layout
-                self.selectedContainer = [container()]
-            except:
-                traceback.format_exc()
+            # set the selected container to the container and
+            # initialize the layout
+            self.selectedContainer = [container()]
+        except:
+            traceback.format_exc()
 ```
 <br>
 
@@ -459,11 +458,11 @@ Final Results
 Both the containers are rendered as a selection is made on the UI. Images Below.
 
 **Container One**<br>
-<img src="../static/container_one_render-ef871fa40a2e7911301ed31d34130683.png">
+<center><img src="../static/container_one_render-ef871fa40a2e7911301ed31d34130683.png" height="200px"></center>
 <br>
 
 **Container Two**<br>
-<img src="../static/container_two_render-8b76654b2f781088b01a3238d396203b.png">
+<center><img src="../static/container_two_render-8b76654b2f781088b01a3238d396203b.png" height="200px"></center>
 
 More containers can be added to play around with different widgets and layouts. This was just a little taste of what can be done with enaml and its easy pythonic implementation. With the combination of python, the UI becomes even more prominent and consider looking into.
 
