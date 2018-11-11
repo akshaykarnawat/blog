@@ -1,0 +1,298 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet"/><style data-href="/blog/app.b62a7e88e5475d544edd.css">code[class*=language-],pre[class*=language-]{-moz-hyphens:none;-moz-tab-size:4;-ms-hyphens:none;-o-tab-size:4;-webkit-hyphens:none;background:none;color:#ccc;hyphens:none;line-height:1.3;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal;word-wrap:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+
+/*# sourceMappingURL=app.b62a7e88e5475d544edd.css.map*/</style><style data-href="/blog/0.886076ee683d30d0e819.css">.header-module--header--MVsbu{color:#15959f;font-weight:600;text-decoration:none;text-shadow:0 0 1px}
+.container-module--container--38ti0{font-family:Open Sans,sans-serif;margin:3rem auto;max-width:630px}
+.post-module--main--2pacP{background:#fff;border-radius:5px;margin-top:20px;padding:20px}.post-module--homeBtn--3cy-B{color:#e23a59}.post-module--tag--2WiWH{background:#000;border:1px solid #000;color:#fff;display:inline-block;font-size:11px;margin-right:5px;padding-left:3px;padding-right:3px;width:auto}.post-module--iframecontainer--3EKEP{overflow:hidden;padding-top:63.25%;position:relative}.post-module--iframe--2-6fr{border:0;height:100%;left:0;position:absolute;top:0;width:100%}
+
+/*# sourceMappingURL=0.886076ee683d30d0e819.css.map*/</style><link as="script" rel="preload" href="/blog/component---src-templates-blog-post-js-4bdaf6fa7e4e1cbd6dd7.js"/><link as="script" rel="preload" href="/blog/0-b124c594273ce56f9a0a.js"/><link as="script" rel="preload" href="/blog/app-6bd94ef485552b86a35d.js"/><link as="script" rel="preload" href="/blog/webpack-runtime-4e0ef89d23012af8e906.js"/><link rel="preload" href="/blog/static/d/824/path---etl-framework-using-abstract-factories-b-81-184-UdmK2kxBi3ztFoSDXXwJkPfrhXQ.json" as="fetch" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div><div class="container-module--container--38ti0"><a class="header-module--header--MVsbu" href="/blog/"><h1>akshaykarnawat | blog</h1></a><a class="post-module--homeBtn--3cy-B" href="/blog/"> ← Home</a><div class="post-module--main--2pacP"><h2>An approach to writing ETL processes in python using Abstract Factory</h2><span style="font-size:13px">Tags: </span><span class="post-module--tag--2WiWH">python</span><span class="post-module--tag--2WiWH"> design pattern</span><span class="post-module--tag--2WiWH"> etl</span><span class="post-module--tag--2WiWH"> abstract factory</span><span class="post-module--tag--2WiWH"> clean code</span><br/><div><br>
+<p>ETL which stands for <strong>Extract - Transform - Load</strong> is an important task in any machine learning or data mining problem. It's the first step to make sure that the data required to perform the computation is gather and loaded properly into a database where it can be retrieved later for further analysis. And database is an arbitraty storage, it can also be stored in a file system as files or python pickles, etc. </p>
+<p>In the Extraction process, we begin by looking at sources where we can extract the data from. For instance, we can extract data from a database, file system, a server, an IOT device, whatever. The transformation process looks at transforming that data into a meaning full structured dataset; where multiple sources can be combined into one. This is the place where data can also be manipulated before load. And the last step is where the transformed data is loaded into a system from where you or others can access the structured data for convenience. </p>
+<p>These steps also keep your data gathering process away from any other analyis you wish to do with your data you collected. So lets begin!</p>
+<p>In order to understand how we can use Abstract Factory to create a generic ETL framework, we must first understand what abstraction is and what abstract factories are. </p>
+<p>An abstraction is a very generic way to saying something. For instance, a forest is an abstraction. Or a planet. Where as an Amazon forest is an example of a forest and Mars is an example of a planet. And there are arbitrary number of example abstractions. What about a forest on Marrs? Or even better, a forest on a planet? These are very generic in the sense that they don't really tell what kind of a forest and what kind of a planet.</p>
+<br>
+<blockquote>
+<p><em>"An <strong>abstraction</strong> is the act of representing essential features without including the background details or explanations."</em></p>
+</blockquote>
+<br>
+<p>For instance, National Park is an abstraction where as Yosemite, and Big Bend are like examples (concrete examples) of that abstraction. Something better would be a Park as an abstrction and then you have a Dog Park, Central Park, Yosemite, etc. which are all examples of a park.</p>
+<p>From this definition we know that Extraction is a very generic term that can be represented with an abstraction. And so is Transformation, and Load. We can create object classes from them as such.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># extract.py</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Extract</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># transform.py</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Transform</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># load.py</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Load</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<p>In order for them to be abstraction, we have to <code class="language-text">import abc</code>. <code class="language-text">abc</code> is the library for creating abstract classes in python. <a href="https://docs.python.org/3.7/library/abc.html">Abstract Base Classes</a></p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod</code></pre>
+      </div>
+<p>Now the classes look like such:</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># extractor.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Extractor</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># transformer.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Transformer</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># loader.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Loader</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span></code></pre>
+      </div>
+<p>We can now define what each class does as its core. So extractor's job is to extract data. I don't care how, I just know it has to extract data. Transformer's job is to transform the data and the loader's job is to load the data. With this the classes would then look like such.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># extractor.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Extractor</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'initializiing an instance of extractor class'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError</code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># transformer.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Transformer</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'initializiing an instance of transformer class'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_transform<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError</code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># loader.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">Loader</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'initializiing an instance of loader class'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_load<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError</code></pre>
+      </div>
+<p>Now in order to pull this all together to create an Abstract Factory we must define yet another class which pulls all these classes together. </p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># etl.py</span>
+
+<span class="token keyword">from</span> abc <span class="token keyword">import</span> ABCMeta<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword">class</span> <span class="token class-name">ETL</span><span class="token punctuation">(</span>metaclass<span class="token operator">=</span>ABCMeta<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    extractor       <span class="token operator">=</span> <span class="token boolean">None</span>
+    transformer     <span class="token operator">=</span> <span class="token boolean">None</span>
+    loader          <span class="token operator">=</span> <span class="token boolean">None</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'initializiing an instance of an etl class'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_transform<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_load<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError
+
+    @abstractmethod <span class="token comment"># must be defined in all the concrete classes</span>
+    <span class="token keyword">def</span> <span class="token function">_load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> NotImplementedError</code></pre>
+      </div>
+<p>In this case, everytime we want to defined a ETL process we must have a concrete example of an ETL process where all concrete extractor, concrete transformer, and concrete loader are defined and initialized.</p>
+<p>--
+<br></p>
+<h4>An Example - Asteroid Mining Operation ETL</h4>
+<p>In this example, I am going to show how an automated driller and extractor is going to extract rocks from an asteroid. The transformer is going to sort through the rocks to obtain platinum, and then how a loader is going to load the platinum into a loader which is then transported to Earth for usage. Who knows, not to far in the future, this is how we might obtain resources.</p>
+<p>Athough this example does not deal with the 'data', it does deal with 'rock or ore' which can be treated like data. So lets start by creating an concrete example of our ETL Process; in this case the asteroid mining gig.</p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># mining_gig.py</span>
+
+<span class="token keyword">from</span> asteroid_mining_operation<span class="token punctuation">.</span>rock_transformer <span class="token keyword">import</span> RockTransformer
+<span class="token keyword">from</span> asteroid_mining_operation<span class="token punctuation">.</span>rock_extractor <span class="token keyword">import</span> RockExtractor
+<span class="token keyword">from</span> asteroid_mining_operation<span class="token punctuation">.</span>rock_loader <span class="token keyword">import</span> RockLoader
+<span class="token keyword">from</span> common<span class="token punctuation">.</span>etl <span class="token keyword">import</span> ETL
+
+<span class="token keyword">class</span> <span class="token class-name">MiningGig</span><span class="token punctuation">(</span>ETL<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>MiningGig<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>extractor <span class="token operator">=</span> RockExtractor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>transformer <span class="token operator">=</span> RockTransformer<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>loader <span class="token operator">=</span> RockLoader<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>extractor<span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>transformer<span class="token punctuation">.</span>transform<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>loader<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_transport</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> location<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'Transporting the module with ore to {0}'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span></code></pre>
+      </div>
+<p>This class implements the ETL abstract base class to extract transform and load. It also inclues a transport function which is an added functionality just for this sort of gigs. The following code will go more into details for each of the extractor, transformer, and loader classes. Note that these classes can be changed at a later point in time since they are just concrete examples of the underlying abstraction. </p>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># rock_extractor.py</span>
+
+<span class="token keyword">from</span> common<span class="token punctuation">.</span>extractor <span class="token keyword">import</span> Extractor
+
+<span class="token keyword">class</span> <span class="token class-name">RockExtractor</span><span class="token punctuation">(</span>Extractor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>RockExtractor<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_extract</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        rocks <span class="token operator">=</span> self<span class="token punctuation">.</span>_drill<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># other specific class functions can also be called!</span>
+        <span class="token keyword">return</span> <span class="token string">'Rock(s) {0} were drilled'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>rocks<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_drill</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">''' drill for rocks! (can also be a python generator) '''</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span>x <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># rock_transformer.py</span>
+
+<span class="token keyword">from</span> common<span class="token punctuation">.</span>transformer <span class="token keyword">import</span> Transformer
+
+<span class="token keyword">class</span> <span class="token class-name">RockTransformer</span><span class="token punctuation">(</span>Transformer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>RockTransformer<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_transform</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'transforming mined rocks and finding the ones that have ores'</span>
+        </code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># rock_loader.py</span>
+
+<span class="token keyword">from</span> common<span class="token punctuation">.</span>loader <span class="token keyword">import</span> Loader
+
+<span class="token keyword">class</span> <span class="token class-name">RockLoader</span><span class="token punctuation">(</span>Loader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>RockLoader<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_load</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'loading ores into a transport'</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="python">
+      <pre class="language-python"><code class="language-python"><span class="token comment"># main.py</span>
+
+<span class="token keyword">from</span> asteroid_mining_operation<span class="token punctuation">.</span>mining_gig <span class="token keyword">import</span> MiningGig
+
+gig <span class="token operator">=</span> MiningGig<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>gig<span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>gig<span class="token punctuation">.</span>transform<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>gig<span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>gig<span class="token punctuation">.</span>_transport<span class="token punctuation">(</span>location<span class="token operator">=</span><span class="token string">'EARTH'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+      </div>
+<div class="gatsby-highlight" data-language="makefile">
+      <pre class="language-makefile"><code class="language-makefile"># Makefile
+
+run: 
+	python -m main</code></pre>
+      </div>
+<p>Here is the final directory structure of the example above</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash"><span class="token operator">></span> tree <span class="token keyword">.</span>
+<span class="token keyword">.</span>
+├── Makefile
+├── asteroid_mining_operation
+│   ├── mining_gig.py
+│   ├── rock_extractor.py
+│   ├── rock_loader.py
+│   └── rock_transformer.py
+├── common
+│   ├── etl.py
+│   ├── extractor.py
+│   ├── loader.py
+│   └── transformer.py
+└── main.py
+
+2 directories, 10 files</code></pre>
+      </div>
+<p>And here is the output for the run</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash"><span class="token operator">></span> <span class="token function">make</span> run
+python -m main
+initializiing an instance of an etl class
+initializiing an instance of extractor class
+initializiing an instance of transformer class
+initializiing an instance of loader class
+Rock<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">[</span>0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99<span class="token punctuation">]</span> were drilled
+transforming mined rocks and finding the ones that have ores
+loading ores into a transport
+Transporting the module with ore to EARTH</code></pre>
+      </div>
+<p>This was just a basic example to showcase how abstract factories can be utilized to perform ETL procedures. I am certain there are other ways of achieving the same output, but this code is clean and can be expanded as software requirements are determined. And it is very benefitial for any data mining and/or analysis project as it keeps the data gathering / transforming / loading process away from the analysis. </p>
+<p>Something to think about -- how would the code above change if there was a different extractor machine to drill and extract the rocks? Would the code change much? What about an entire process of ETL? What if the process included extracting and loading without any transformation?</p>
+<br></div><br/><br/><center><div style="height:250px;width:300px">   
+              <script type="text/javascript">
+              ( function() {
+                if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+                var unit = {"calltype":"async[2]","publisher":"akarnawat","width":300,"height":250,"sid":"python, design pattern, etl, abstract factory, clean code,"};
+                var placement_id = window.CHITIKA.units.length;
+                window.CHITIKA.units.push(unit);
+                document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+              }());
+              </script>
+              <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+              </div></center></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"etl-framework-using-abstract-factories-b81","path":"/etl_framework_using_abstract_factories/"};window.dataPath="824/path---etl-framework-using-abstract-factories-b-81-184-UdmK2kxBi3ztFoSDXXwJkPfrhXQ";/*]]>*/</script><script src="/blog/webpack-runtime-4e0ef89d23012af8e906.js" async=""></script><script src="/blog/app-6bd94ef485552b86a35d.js" async=""></script><script src="/blog/0-b124c594273ce56f9a0a.js" async=""></script><script src="/blog/component---src-templates-blog-post-js-4bdaf6fa7e4e1cbd6dd7.js" async=""></script></body></html>
